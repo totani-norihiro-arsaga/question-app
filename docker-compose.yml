@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    container_name: nestjs-app
+    container_name: question-app
     build:
       context: ./docker/app/
       dockerfile: Dockerfile
@@ -11,3 +11,20 @@ services:
       - .:/app
       - ./node_modules:/app/node_modules
     command: npm run start:dev
+  mysql:
+    image: mysql:8.0
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    container_name: question-db
+    volumes:
+      - mysql-data-volume:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      TZ: 'Asia/Tokyo'
+      MYSQL_DATABASE: question
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: root
+
+volumes:
+  mysql-data-volume:
