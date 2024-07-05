@@ -3,7 +3,9 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { QuestionModule } from './questions/question.module';
 import  configurations  from './config/configuration'
+import { SurveyMdule } from './surveys/survery.module';
 
 @Module({
   imports: [
@@ -18,9 +20,11 @@ import  configurations  from './config/configuration'
         username: configService.get('database.username'),
         password: configService.get('database.password'),
         database: configService.get('database.name'),
-        entities: ['dist/**/entities/*.entity.js']
+        entities: [__dirname + '../dist/**/entities/*.entity.js']
       }),
-    })
+    }),
+    QuestionModule,
+    SurveyMdule
   ],
   controllers: [AppController],
   providers: [AppService],

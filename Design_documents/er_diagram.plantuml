@@ -1,0 +1,53 @@
+@startuml er
+
+entity "管理者 (admins)" as admins {
+  + id : INT [PK] -- 管理者ID
+  --
+    name : VARCHAR -- 管理者名
+    email : VARCHAR -- 管理者メールアドレス
+    password : VARCHAR -- パスワード（ハッシュ化）
+}
+
+entity "アンケート (surveys)" as surveys {
+  + id : INT [PK] -- アンケートID
+  --
+    admin_id : INT [FK] -- 管理者ID
+    title : VARCHAR -- アンケートタイトル
+    created_at : TIMESTAMP -- 作成日時
+    updated_at : TIMESTAMP -- 更新日時
+}
+
+entity "質問 (questions)" as questions {
+  + id : INT [PK] -- 質問ID
+  --
+    survey_id : INT [FK] -- アンケートID
+    question_text : VARCHAR -- 質問文
+    response_format : INT -- 回答形式
+    created_at : TIMESTAMP -- 作成日時
+    updated_at : TIMESTAMP -- 更新日時
+}
+
+entity "選択肢 (choices)" as choices {
+  + id : INT [PK] -- 選択肢ID
+  --
+    question_id : INT [FK] -- 質問ID
+    choice_text : VARCHAR -- 選択肢文
+    created_at : TIMESTAMP -- 作成日時
+    updated_at : TIMESTAMP -- 更新日時
+}
+
+entity "回答 (multiple_choice_responses)" as multiple_choice_responses {
+  + id : INT [PK] -- 回答ID
+  --
+    question_id : INT [FK] -- 質問ID
+    choice_id : INT [FK] -- 選択肢ID
+    created_at : TIMESTAMP -- 作成日時
+}
+
+admins ||--o{ surveys
+surveys ||--o{ questions
+questions ||--o{ choices
+questions ||--o{ multiple_choice_responses
+choices ||--o{ multiple_choice_responses
+
+@enduml
