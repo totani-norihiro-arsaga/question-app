@@ -1,15 +1,6 @@
 @startuml er
-
-entity "管理者 (admins)" as admins {
-  + id : INT [PK] -- 管理者ID
-  --
-    name : VARCHAR -- 管理者名
-    email : VARCHAR -- 管理者メールアドレス
-    password : VARCHAR -- パスワード（ハッシュ化）
-}
-
 entity "アンケート (surveys)" as surveys {
-  + id : INT [PK] -- アンケートID
+  + id : VARCHAR [PK] -- アンケートID(uuid)
   --
     admin_id : INT [FK] -- 管理者ID
     title : VARCHAR -- アンケートタイトル
