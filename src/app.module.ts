@@ -21,7 +21,7 @@ import { DatabaseModule } from './database/database.module';
         username: configService.get('database.username'),
         password: configService.get('database.password'),
         database: configService.get('database.name'),
-        entities: [__dirname + '../dist/**/entities/*.entity.js']
+        entities: ['dist/**/entities/**/*.entity.js']
       }),
     }),
     QuestionModule,

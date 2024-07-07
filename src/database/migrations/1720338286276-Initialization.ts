@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class Initialization1720185731697 implements MigrationInterface {
-    name = 'Initialization1720185731697'
+export class Initialization1720338286276 implements MigrationInterface {
+    name = 'Initialization1720338286276'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE \`multiple_choice_responses\` (\`id\` int NOT NULL AUTO_INCREMENT COMMENT '回答ID', \`createdDate\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`choiceId\` int NULL COMMENT '選択肢ID', \`questionId\` int NULL COMMENT '質問ID', PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
