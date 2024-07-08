@@ -2,6 +2,7 @@ import {Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColu
 import { Survey } from 'src/surveys/entities/survey.entity';
 import { Choice } from './choice.entity';
 import { MultipleChoiceResponse } from './multiple-choice-response.entity';
+import { ResponseTypes } from '../ enums/ResponseTypes';
 
 @Entity('questions')
 export class Question {
@@ -12,7 +13,7 @@ export class Question {
     question_text: string;
     
     @Column({type:'int', comment:'回答形式'})
-    response_format: string;
+    response_format: ResponseTypes;
 
     @CreateDateColumn()
     createdDate: Date
