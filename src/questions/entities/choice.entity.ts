@@ -1,4 +1,4 @@
-import {Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany} from 'typeorm';
+import {Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, JoinColumn} from 'typeorm';
 import { Question } from './question.entity';
 import { MultipleChoiceResponse } from './multiple-choice-response.entity';
 
@@ -8,7 +8,7 @@ export class Choice {
     id: number;
 
     @Column({type:'varchar', comment:'選択肢文言'})
-    choice_text: string;
+    choiceText: string;
 
     @CreateDateColumn()
     createdDate: Date
@@ -17,7 +17,11 @@ export class Choice {
     updatedDate: Date
 
     @ManyToOne(() => Question, (question) => question.choices)
+    @JoinColumn({name:'questionId'})
     question: Question
+
+    @Column({type:'number', nullable:true})
+    questionId: number
 
     @OneToMany(() => MultipleChoiceResponse, (multipleChoiceResponse) => multipleChoiceResponse.choice)
     multipleChoiceResponses: MultipleChoiceResponse[];

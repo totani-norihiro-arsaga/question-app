@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Question } from 'src/questions/entities/question.entity';
-import { Repository } from 'typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import { CreateQuestionDto } from 'src/questions/dto/create-qustion.dto';
 import { Choice } from 'src/questions/entities/choice.entity';
 
@@ -12,22 +12,25 @@ export class QuestionService {
         @InjectRepository(Choice) private choiceRepository: Repository<Choice>
     ){}
 
-    async create(createQuestionDto: CreateQuestionDto) {
-        createQuestionDto
-        let question = await this.questionRepository.save(
+    async create(createQuestionDto: CreateQuestionDto, manager:EntityManager) {
+        console.log(createQuestionDto);
+        let question = await manager.getRepository(Question).save(
             {
-                question_text: createQuestionDto.qustion_text,
-                response_format: createQuestionDto.response_format,
-                Survey_id: createQuestionDto.survey_id,
+                questionText: createQuestionDto.qustion_text,
+                responseFormat: createQuestionDto.response_format,
+                surveyId: createQuestionDto.survey_id,
             }
         )
 
     createQuestionDto.choice.question_id = question.id;
 
-        return await this.choiceRepository.save(
+    throw new Error("選択肢の保存でエラーがおきました。");
+    
+
+        return await manager.getRepository(Choice).save(
             {
-                choice_text: createQuestionDto.choice.choice_text,
-                question_id: createQuestionDto.choice.question_id,
+                choiceText: createQuestionDto.choice.choice_text,
+                questionId: createQuestionDto.choice.question_id,
             }
         )
     }
