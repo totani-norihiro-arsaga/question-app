@@ -35,7 +35,7 @@ export class SurveyController {
     type: InternalServerErrorResponse,
     description: 'サーバーエラー',
   })
-  async create(@Body() createSurveyDto: CreateSurveyDto): Promise<void> {
+  async create(@Body() createSurveyDto: CreateSurveyDto): Promise<void | CreatedSurveyResponseDto> {
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
@@ -45,11 +45,12 @@ export class SurveyController {
       createSurveyDto.question.survey_id = survey.id;
       await this.questionService.create(createSurveyDto.question, manager);
       await queryRunner.commitTransaction();
+      await queryRunner.release();
+      return new CreatedSurveyResponseDto();
     } catch (error) {
       await queryRunner.rollbackTransaction();
-      throw error;
-    } finally {
       await queryRunner.release();
+      throw error;
     }
   }
 }

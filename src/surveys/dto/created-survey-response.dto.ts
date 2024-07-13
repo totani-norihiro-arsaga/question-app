@@ -7,4 +7,8 @@ export class CreatedSurveyResponseDto {
     default: '作成成功しました。',
   })
   message: '作成成功しました。';
+
+  constructor() {
+    this.message = '作成成功しました。';
+  }
 }

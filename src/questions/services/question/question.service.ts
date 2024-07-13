@@ -14,7 +14,6 @@ export class QuestionService {
   ) {}
 
   async create(createQuestionDto: CreateQuestionDto, manager: EntityManager) {
-    console.log(createQuestionDto);
     let question = await manager.getRepository(Question).save({
       questionText: createQuestionDto.qustion_text,
       responseFormat: createQuestionDto.response_format,
