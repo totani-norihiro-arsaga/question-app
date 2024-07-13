@@ -3,11 +3,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Survey } from '../../surveys/entities/survey.entity';
 import { SurveyController } from './survey.controller';
 import { SurveyService } from './service/survey.service';
-import { QuestionModule } from '../question/question.module';
+import { AdminQuestionModule } from '../question/admin.question.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Survey]), QuestionModule],
+  imports: [TypeOrmModule.forFeature([Survey]), AdminQuestionModule],
   controllers: [SurveyController],
   providers: [SurveyService],
 })
-export class SurveyMdule {}
+export class AdminSurveyMdule {}

@@ -3,9 +3,10 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { QuestionModule } from './admin/question/question.module';
+import { AdminQuestionModule } from './admin/question/admin.question.module';
 import configurations from './config/configuration';
-import { SurveyMdule } from './admin/survey/survery.module';
+import { AdminSurveyMdule } from './admin/survey/admin.survery.module';
+import { SurveyMdule } from './user/survey/survery.module';
 import { DatabaseModule } from './database/database.module';
 import { AnswerModule } from './user/answer/answer.module';
 
@@ -25,10 +26,11 @@ import { AnswerModule } from './user/answer/answer.module';
         entities: ['dist/**/entities/**/*.entity.js'],
       }),
     }),
-    QuestionModule,
-    SurveyMdule,
+    AdminQuestionModule,
+    AdminSurveyMdule,
     DatabaseModule,
     AnswerModule,
+    SurveyMdule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -12,4 +12,4 @@ import { QuestionService } from './services/question/question.service';
   providers: [QuestionService],
   exports: [QuestionService],
 })
-export class QuestionModule {}
+export class AdminQuestionModule {}
