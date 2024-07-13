@@ -10,9 +10,9 @@ export class SurveyService {
     @InjectRepository(Survey) private surveyRepository: Repository<Survey>,
   ) {}
 
-  async getAll(page:number, limit:number):Promise<[Survey[], number]>
+  async getAll():Promise<Survey[]>
   {
-    return await this.surveyRepository.findAndCount({skip: page * limit, take:limit, relations:['questions', 'questions.choices']});
+    return await this.surveyRepository.find();
   }
 
   async create(

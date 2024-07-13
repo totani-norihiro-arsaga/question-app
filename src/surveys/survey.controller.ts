@@ -14,6 +14,7 @@ import {
 import { ValidationErrorResponse } from 'src/exception/dto/validation-error-response.dto';
 import { CreatedSurveyResponseDto } from './dto/created-survey-response.dto';
 import { InternalServerErrorResponse } from 'src/exception/dto/internal-server-error-response.dto';
+import { Survey } from './entities/survey.entity';
 
 @Controller('survey')
 export class SurveyController {
@@ -26,12 +27,11 @@ export class SurveyController {
   @Get('index')
   @ApiOkResponse({type: IndexSurveyDto})
   @ApiInternalServerErrorResponse({
-    type: InternalServerErrorResponse,
+    type: Array<Survey>,
     description: 'サーバーエラー',
   })
-  async index(@Query('page', ParseIntPipe) page:number, @Query('limit', ParseIntPipe) limit:number) {
-    const [surveys, total] = await this.surveyService.getAll(page, limit);
-    return new IndexSurveyDto(surveys, page - 1, total);
+  async index():Promise<Survey[]> {
+    return await this.surveyService.getAll();
   }
 
   @Post('create')
