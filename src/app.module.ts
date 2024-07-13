@@ -3,10 +3,11 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { QuestionModule } from './questions/question.module';
+import { QuestionModule } from './admin/question/question.module';
 import configurations from './config/configuration';
-import { SurveyMdule } from './surveys/survery.module';
+import { SurveyMdule } from './admin/survey/survery.module';
 import { DatabaseModule } from './database/database.module';
+import { AnswerModule } from './user/answer/answer.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { DatabaseModule } from './database/database.module';
     QuestionModule,
     SurveyMdule,
     DatabaseModule,
+    AnswerModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,8 +1,8 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Survey } from '../entities/survey.entity';
+import { Survey } from 'src/surveys/entities/survey.entity';
 import { EntityManager, Repository } from 'typeorm';
-import { CreateSurveyDto } from '../dto/create-survey.dto';
+import { CreateSurveyDto } from 'src/surveys/dto/create-survey.dto';
 
 @Injectable()
 export class SurveyService {

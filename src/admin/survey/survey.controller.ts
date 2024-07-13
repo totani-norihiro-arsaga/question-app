@@ -1,8 +1,8 @@
 import { Body, Controller, Post, Get, ParseIntPipe, Query} from '@nestjs/common';
-import { CreateSurveyDto } from './dto/create-survey.dto';
-import { IndexSurveyDto } from './dto/index-survey.dto';
+import { CreateSurveyDto } from '../../surveys/dto/create-survey.dto';
+import { IndexSurveyDto } from '../../surveys/dto/index-survey.dto';
 import { SurveyService } from './service/survey.service';
-import { QuestionService } from 'src/questions/services/question/question.service';
+import { QuestionService } from 'src/admin/question/services/question/question.service';
 import { DataSource, Index } from 'typeorm';
 import {
   ApiBadRequestResponse,
@@ -12,11 +12,11 @@ import {
   ApiOperation,
 } from '@nestjs/swagger';
 import { ValidationErrorResponse } from 'src/exception/dto/validation-error-response.dto';
-import { CreatedSurveyResponseDto } from './dto/created-survey-response.dto';
+import { CreatedSurveyResponseDto } from '../../surveys/dto/created-survey-response.dto';
 import { InternalServerErrorResponse } from 'src/exception/dto/internal-server-error-response.dto';
-import { Survey } from './entities/survey.entity';
+import { Survey } from '../../surveys/entities/survey.entity';
 
-@Controller('survey')
+@Controller('admin/survey')
 export class SurveyController {
   constructor(
     private readonly surveyService: SurveyService,
@@ -66,4 +66,6 @@ export class SurveyController {
       throw error;
     }
   }
+
+  
 }
