@@ -10,6 +10,11 @@ export class SurveyService {
     @InjectRepository(Survey) private surveyRepository: Repository<Survey>,
   ) {}
 
+  async getAll(page:number, limit:number):Promise<[Survey[], number]>
+  {
+    return await this.surveyRepository.findAndCount({skip: page * limit, take:limit, relations:['questions', 'questions.choices']});
+  }
+
   async create(
     createSurveyDto: CreateSurveyDto,
     manager: EntityManager,

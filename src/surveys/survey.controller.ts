@@ -1,12 +1,14 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Get, ParseIntPipe, Query} from '@nestjs/common';
 import { CreateSurveyDto } from './dto/create-survey.dto';
+import { IndexSurveyDto } from './dto/index-survey.dto';
 import { SurveyService } from './service/survey.service';
 import { QuestionService } from 'src/questions/services/question/question.service';
-import { DataSource } from 'typeorm';
+import { DataSource, Index } from 'typeorm';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiOkResponse,
   ApiOperation,
 } from '@nestjs/swagger';
 import { ValidationErrorResponse } from 'src/exception/dto/validation-error-response.dto';
@@ -20,6 +22,17 @@ export class SurveyController {
     private readonly questionService: QuestionService,
     private readonly dataSource: DataSource,
   ) {}
+
+  @Get('index')
+  @ApiOkResponse({type: IndexSurveyDto})
+  @ApiInternalServerErrorResponse({
+    type: InternalServerErrorResponse,
+    description: 'サーバーエラー',
+  })
+  async index(@Query('page', ParseIntPipe) page:number, @Query('limit', ParseIntPipe) limit:number) {
+    const [surveys, total] = await this.surveyService.getAll(page, limit);
+    return new IndexSurveyDto(surveys, page - 1, total);
+  }
 
   @Post('create')
   @ApiOperation({ summary: '新しいアンケートを作成する。' })
