@@ -3,12 +3,12 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AdminQuestionModule } from './admin/question/admin.question.module';
+import { AdminQuestionModule } from './modules/admin/question/admin.question.module';
 import configurations from './config/configuration';
-import { AdminSurveyMdule } from './admin/survey/admin.survery.module';
-import { SurveyMdule } from './user/survey/survery.module';
+import { AdminSurveyMdule } from './modules/admin/survey/admin.survery.module';
+import { SurveyMdule } from './modules/user/survey/survery.module';
 import { DatabaseModule } from './database/database.module';
-import { AnswerModule } from './user/answer/answer.module';
+import { AnswerModule } from './modules/user/answer/answer.module';
 
 @Module({
   imports: [
