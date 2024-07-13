@@ -6,12 +6,16 @@ import { CreateSurveyDto } from '../dto/create-survey.dto';
 
 @Injectable()
 export class SurveyService {
-    constructor(
-        @InjectRepository(Survey) private surveyRepository:Repository<Survey>
-    )
-    {}
-    
-    async create(createSurveyDto:CreateSurveyDto, manager:EntityManager):Promise<Survey> {
-        return await manager.getRepository(Survey).save({title:createSurveyDto.title})
-    }
+  constructor(
+    @InjectRepository(Survey) private surveyRepository: Repository<Survey>,
+  ) {}
+
+  async create(
+    createSurveyDto: CreateSurveyDto,
+    manager: EntityManager,
+  ): Promise<Survey> {
+    return await manager
+      .getRepository(Survey)
+      .save({ title: createSurveyDto.title });
+  }
 }

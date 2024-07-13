@@ -1,3 +1,3 @@
 export enum ResponseTypes {
-    SingleChoice = 1,
+  SingleChoice = 1,
 }

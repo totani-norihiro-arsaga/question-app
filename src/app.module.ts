@@ -4,13 +4,13 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { QuestionModule } from './questions/question.module';
-import  configurations  from './config/configuration'
+import configurations from './config/configuration';
 import { SurveyMdule } from './surveys/survery.module';
 import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({load: configurations}),
+    ConfigModule.forRoot({ load: configurations }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -21,12 +21,12 @@ import { DatabaseModule } from './database/database.module';
         username: configService.get('database.username'),
         password: configService.get('database.password'),
         database: configService.get('database.name'),
-        entities: ['dist/**/entities/**/*.entity.js']
+        entities: ['dist/**/entities/**/*.entity.js'],
       }),
     }),
     QuestionModule,
     SurveyMdule,
-    DatabaseModule
+    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],

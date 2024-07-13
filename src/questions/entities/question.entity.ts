@@ -1,4 +1,13 @@
-import {Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, JoinColumn} from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+  OneToMany,
+  JoinColumn,
+} from 'typeorm';
 import { Survey } from 'src/surveys/entities/survey.entity';
 import { Choice } from './choice.entity';
 import { MultipleChoiceResponse } from './multiple-choice-response.entity';
@@ -7,31 +16,34 @@ import { UUID } from 'crypto';
 
 @Entity('questions')
 export class Question {
-    @PrimaryGeneratedColumn('increment',{comment:'質問ID'})
-    id: number;
+  @PrimaryGeneratedColumn('increment', { comment: '質問ID' })
+  id: number;
 
-    @Column({type:'varchar', comment:'質問文'})
-    questionText: string;
-    
-    @Column({type:'int', comment:'回答形式'})
-    responseFormat: ResponseTypes;
+  @Column({ type: 'varchar', comment: '質問文' })
+  questionText: string;
 
-    @CreateDateColumn()
-    createdDate: Date
+  @Column({ type: 'int', comment: '回答形式' })
+  responseFormat: ResponseTypes;
 
-    @UpdateDateColumn()
-    updatedDate: Date
+  @CreateDateColumn()
+  createdDate: Date;
 
-    @ManyToOne(() => Survey, (survey) => survey.questions)
-    @JoinColumn({name: 'surveyId'})
-    survey: Survey
+  @UpdateDateColumn()
+  updatedDate: Date;
 
-    @Column({type:'uuid' ,nullable: true })
-    surveyId: UUID;
+  @ManyToOne(() => Survey, (survey) => survey.questions)
+  @JoinColumn({ name: 'surveyId' })
+  survey: Survey;
 
-    @OneToMany(() => Choice, (choice) => choice.question)
-    choices: Choice
+  @Column({ type: 'uuid', nullable: true })
+  surveyId: UUID;
 
-    @OneToMany(() => MultipleChoiceResponse, (multipleChoiceResponse) => multipleChoiceResponse.question)
-    multipleChoiceResponses: MultipleChoiceResponse
+  @OneToMany(() => Choice, (choice) => choice.question)
+  choices: Choice;
+
+  @OneToMany(
+    () => MultipleChoiceResponse,
+    (multipleChoiceResponse) => multipleChoiceResponse.question,
+  )
+  multipleChoiceResponses: MultipleChoiceResponse;
 }
