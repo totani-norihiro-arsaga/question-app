@@ -31,9 +31,9 @@ export class CreateQuestionDto {
   response_format: ResponseTypes;
 
   @ValidateNested()
-  @Type(() => CreateChoiceDto)
-  @ApiProperty({ type: CreateChoiceDto, description: '質問に対する選択肢' })
-  choice: CreateChoiceDto;
+  @Type(() => Array<CreateChoiceDto>)
+  @ApiProperty({ type: Array<CreateChoiceDto>, description: '質問に対する選択肢' })
+  choices: CreateChoiceDto[];
 
   @IsOptional()
   @IsUUID()

@@ -20,11 +20,15 @@ export class QuestionService {
       surveyId: createQuestionDto.survey_id,
     });
 
-    createQuestionDto.choice.question_id = question.id;
+    const choices = createQuestionDto.choices.map((createChoiceDto)=>{
+      return {
+        choiceText: createChoiceDto.choice_text,
+        questionId: question.id,
+      }
+    })
 
-    return await manager.getRepository(Choice).save({
-      choiceText: createQuestionDto.choice.choice_text,
-      questionId: createQuestionDto.choice.question_id,
-    });
+    const a = await manager.getRepository(Choice).save(choices);
+    console.log(a);
+    return a;
   }
 }
