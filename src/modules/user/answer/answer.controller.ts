@@ -4,14 +4,12 @@ import { InternalServerErrorResponse } from 'src/exception/dto/internal-server-e
 import { ValidationErrorResponse } from 'src/exception/dto/validation-error-response.dto';
 import { CreateSurveyAnswerDto } from './dto/create-survey-answer.dto';
 import { CreateAnswerResponseDto } from './dto/create-answer-response.dto';
-import { DataSource } from 'typeorm';
 import { AnswerService } from './answer.service';
 
 @Controller('answer')
 export class AnswerController {
     constructor(
         private readonly answerService: AnswerService,
-        private readonly datasource: DataSource
     ){}
 
     @Post()

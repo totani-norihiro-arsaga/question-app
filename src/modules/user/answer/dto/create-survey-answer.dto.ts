@@ -2,7 +2,10 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
 import { IsNotEmpty, IsUUID } from "class-validator";
 import { UUID } from "crypto";
-import { CreateQuestionAnswerDto } from "./create-question-answer.dto";
+
+class SurveyAnswerContent {
+    [key: number]: number;
+}
 
 export class CreateSurveyAnswerDto {
 
@@ -16,11 +19,11 @@ export class CreateSurveyAnswerDto {
     surveyId: UUID;
 
     @IsNotEmpty()
-    @Type(()=>CreateQuestionAnswerDto)
+    @Type(()=>SurveyAnswerContent)
     @ApiProperty({
-        type: CreateQuestionAnswerDto,
-        example: {questionId:1, content:2},
+        type: SurveyAnswerContent,
+        example: {29:1, 31:2},
         description: 'アンケートの質問と回答のセット'
     })
-    answer: CreateQuestionAnswerDto;
+    contens: SurveyAnswerContent;
 }

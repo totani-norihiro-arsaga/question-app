@@ -15,10 +15,13 @@ export class AnswerService {
         createAnswerDto: CreateSurveyAnswerDto,
     )
     {
+        const answers = Object.keys(createAnswerDto.contens).map(key => {
+            return {
+                choiceId: createAnswerDto.contens[key] as number,
+                questionId: parseInt(key)
+            }
+        })
         return await this.multipleChoiceResponseRepository
-        .save({
-            choiceId: createAnswerDto.answer.content,
-            questionId: createAnswerDto.answer.questionId,
-        });
+        .save(answers);
     }
 }

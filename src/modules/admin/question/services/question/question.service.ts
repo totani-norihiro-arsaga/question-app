@@ -27,8 +27,6 @@ export class QuestionService {
       }
     })
 
-    const a = await manager.getRepository(Choice).save(choices);
-    console.log(a);
-    return a;
+    return await manager.getRepository(Choice).save(choices);
   }
 }
