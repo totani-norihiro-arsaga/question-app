@@ -18,13 +18,13 @@ export class MultipleChoiceResponse {
   createdDate: Date;
 
   @ManyToOne(() => Choice, (choice) => choice.multipleChoiceResponses)
-  @JoinColumn({name: 'choiceId'})
+  @JoinColumn({ name: 'choiceId' })
   choice: Choice;
   @Column({ type: 'number', nullable: true })
   choiceId: number;
 
   @ManyToOne(() => Question, (question) => question.multipleChoiceResponses)
-  @JoinColumn({name: 'questionId'})
+  @JoinColumn({ name: 'questionId' })
   question: Question;
   @Column({ type: 'number', nullable: true })
   questionId: number;

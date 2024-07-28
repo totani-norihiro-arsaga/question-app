@@ -39,11 +39,11 @@ export class Question {
   surveyId: UUID;
 
   @OneToMany(() => Choice, (choice) => choice.question)
-  choices: Choice;
+  choices: Choice[];
 
   @OneToMany(
     () => MultipleChoiceResponse,
     (multipleChoiceResponse) => multipleChoiceResponse.question,
   )
-  multipleChoiceResponses: MultipleChoiceResponse;
+  multipleChoiceResponses: MultipleChoiceResponse[];
 }

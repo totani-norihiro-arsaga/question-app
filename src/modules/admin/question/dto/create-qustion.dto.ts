@@ -32,7 +32,10 @@ export class CreateQuestionDto {
 
   @ValidateNested()
   @Type(() => Array<CreateChoiceDto>)
-  @ApiProperty({ type: Array<CreateChoiceDto>, description: '質問に対する選択肢' })
+  @ApiProperty({
+    type: Array<CreateChoiceDto>,
+    description: '質問に対する選択肢',
+  })
   choices: CreateChoiceDto[];
 
   @IsOptional()

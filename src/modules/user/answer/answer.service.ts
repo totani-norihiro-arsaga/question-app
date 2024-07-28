@@ -6,22 +6,18 @@ import { CreateSurveyAnswerDto } from './dto/create-survey-answer.dto';
 
 @Injectable()
 export class AnswerService {
-    constructor(
-        @InjectRepository(MultipleChoiceResponse)
-        private multipleChoiceResponseRepository: Repository<MultipleChoiceResponse>,
-    ){}
+  constructor(
+    @InjectRepository(MultipleChoiceResponse)
+    private multipleChoiceResponseRepository: Repository<MultipleChoiceResponse>,
+  ) {}
 
-    async create(
-        createAnswerDto: CreateSurveyAnswerDto,
-    )
-    {
-        const answers = Object.keys(createAnswerDto.contens).map(key => {
-            return {
-                choiceId: createAnswerDto.contens[key] as number,
-                questionId: parseInt(key)
-            }
-        })
-        return await this.multipleChoiceResponseRepository
-        .save(answers);
-    }
+  async create(createAnswerDto: CreateSurveyAnswerDto) {
+    const answers = Object.keys(createAnswerDto.contens).map((key) => {
+      return {
+        choiceId: createAnswerDto.contens[key] as number,
+        questionId: parseInt(key),
+      };
+    });
+    return await this.multipleChoiceResponseRepository.save(answers);
+  }
 }

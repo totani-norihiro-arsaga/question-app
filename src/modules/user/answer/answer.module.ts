@@ -7,6 +7,6 @@ import { MultipleChoiceResponse } from 'src/entities/multiple-choice-response.en
 @Module({
   imports: [TypeOrmModule.forFeature([MultipleChoiceResponse])],
   controllers: [AnswerController],
-  providers: [AnswerService]
+  providers: [AnswerService],
 })
 export class AnswerModule {}

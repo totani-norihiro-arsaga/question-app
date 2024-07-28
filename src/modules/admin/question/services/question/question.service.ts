@@ -20,12 +20,12 @@ export class QuestionService {
       surveyId: createQuestionDto.survey_id,
     });
 
-    const choices = createQuestionDto.choices.map((createChoiceDto)=>{
+    const choices = createQuestionDto.choices.map((createChoiceDto) => {
       return {
         choiceText: createChoiceDto.choice_text,
         questionId: question.id,
-      }
-    })
+      };
+    });
 
     return await manager.getRepository(Choice).save(choices);
   }

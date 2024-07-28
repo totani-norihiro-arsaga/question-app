@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Get} from '@nestjs/common';
+import { Body, Controller, Post, Get, Param } from '@nestjs/common';
 import { CreateSurveyDto } from './dto/create-survey.dto';
 import { IndexSurveyDto } from './dto/index-survey.dto';
 import { SurveyService } from './service/survey.service';
@@ -15,6 +15,8 @@ import { ValidationErrorResponse } from 'src/exception/dto/validation-error-resp
 import { CreatedSurveyResponseDto } from './dto/created-survey-response.dto';
 import { InternalServerErrorResponse } from 'src/exception/dto/internal-server-error-response.dto';
 import { Survey } from '../../../entities/survey.entity';
+import { UUID } from 'crypto';
+import { ShowSurveyResposeDto } from './dto/show-survey-response.dto';
 
 @Controller('admin/survey')
 export class SurveyController {
@@ -25,13 +27,21 @@ export class SurveyController {
   ) {}
 
   @Get('index')
-  @ApiOkResponse({type: IndexSurveyDto})
+  @ApiOkResponse({ type: IndexSurveyDto })
   @ApiInternalServerErrorResponse({
     type: Array<Survey>,
     description: 'サーバーエラー',
   })
-  async index():Promise<Survey[]> {
+  async index(): Promise<Survey[]> {
     return await this.surveyService.getAll();
+  }
+
+  @ApiOkResponse({ type: ShowSurveyResposeDto })
+  @Get(':id')
+  async show(@Param('id') id: UUID): Promise<ShowSurveyResposeDto> {
+    const survey = await this.surveyService.findById(id);
+    const a = new ShowSurveyResposeDto(survey);
+    return a;
   }
 
   @Post('create')
@@ -48,7 +58,9 @@ export class SurveyController {
     type: InternalServerErrorResponse,
     description: 'サーバーエラー',
   })
-  async create(@Body() createSurveyDto: CreateSurveyDto): Promise<void | CreatedSurveyResponseDto> {
+  async create(
+    @Body() createSurveyDto: CreateSurveyDto,
+  ): Promise<void | CreatedSurveyResponseDto> {
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
@@ -66,6 +78,4 @@ export class SurveyController {
       throw error;
     }
   }
-
-  
 }
