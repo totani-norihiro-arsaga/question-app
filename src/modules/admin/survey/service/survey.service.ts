@@ -12,7 +12,10 @@ export class SurveyService {
   ) {}
 
   async getAll(): Promise<Survey[]> {
-    return await this.surveyRepository.find();
+    return await this.surveyRepository
+    .createQueryBuilder('survey')
+    .orderBy('survey.createdDate', 'DESC')
+    .getMany();
   }
 
   async findById(id: UUID): Promise<Survey> {

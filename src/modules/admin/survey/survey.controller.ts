@@ -28,6 +28,7 @@ export class SurveyController {
 
   @Get('index')
   @ApiOkResponse({ type: IndexSurveyDto })
+  @ApiOperation({ summary: 'アンケートの一覧。' })
   @ApiInternalServerErrorResponse({
     type: Array<Survey>,
     description: 'サーバーエラー',
@@ -37,11 +38,11 @@ export class SurveyController {
   }
 
   @ApiOkResponse({ type: ShowSurveyResposeDto })
+  @ApiOperation({ summary: 'アンケートの詳細' })
   @Get(':id')
   async show(@Param('id') id: UUID): Promise<ShowSurveyResposeDto> {
     const survey = await this.surveyService.findById(id);
-    const a = new ShowSurveyResposeDto(survey);
-    return a;
+    return new ShowSurveyResposeDto(survey);
   }
 
   @Post('create')

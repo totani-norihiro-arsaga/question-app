@@ -45,8 +45,54 @@ class SurveyDetail {
 export class ShowSurveyResposeDto {
   @ApiProperty({
     type: SurveyDetail,
+    example: {
+      surveyId: '502de0f6-ec36-4690-8cfe-8071deeb9d4c',
+      surveyTitle: '作成テスト',
+      createdAt: '2024-07-30T23:39:12.366Z',
+      questions: [
+        {
+          questionText: 'サッカーは好きですか',
+          choices: [
+            {
+              choiceText: '好き',
+              total_ansered_amount: 0,
+            },
+            {
+              choiceText: '嫌い',
+              total_ansered_amount: 0,
+            },
+            {
+              choiceText: '関心が無い',
+              total_ansered_amount: 0,
+            },
+          ],
+        },
+        {
+          questionText: 'オリンピックは見ていますか？',
+          choices: [
+            {
+              choiceText: '見ている',
+              total_ansered_amount: 0,
+            },
+            {
+              choiceText: '見ていない',
+              total_ansered_amount: 0,
+            },
+            {
+              choiceText: '関心がない',
+              total_ansered_amount: 0,
+            },
+          ],
+        },
+      ],
+    },
   })
-  survey: SurveyDetail;
+  public survey: SurveyDetail;
+
+  @ApiProperty({
+    type: Number,
+    example: 10,
+  })
   public total_answered_amount: number;
   constructor(survey: Survey) {
     this.total_answered_amount =

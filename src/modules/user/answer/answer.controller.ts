@@ -16,7 +16,7 @@ export class AnswerController {
   constructor(private readonly answerService: AnswerService) {}
 
   @Post()
-  @ApiOperation({ summary: 'アンケートに対する回答を作成する。' })
+  @ApiOperation({ summary: 'アンケートに対する回答を保存する。' })
   @ApiCreatedResponse({
     type: CreateAnswerResponseDto,
     description: '回答作成成功',
