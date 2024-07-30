@@ -9,10 +9,10 @@ export class CreateChoiceDto {
     example: 'ひつじ',
     description: '質問に対する選択肢',
   })
-  choice_text: string;
+  choiceText: string;
 
   @IsOptional()
   @IsNumber()
   @ApiProperty({ type: 'number', example: 3, description: '質問ID' })
-  question_id: number | null;
+  questionId: number | null;
 }

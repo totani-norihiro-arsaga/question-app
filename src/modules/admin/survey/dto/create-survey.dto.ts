@@ -1,11 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsNotEmpty, IsString, ValidateNested } from 'class-validator';
+import { ArrayMinSize, ArrayNotEmpty, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
 import { CreateQuestionDto } from 'src/modules/admin/question/dto/create-qustion.dto';
 
 export class CreateSurveyDto {
-  @IsString()
-  @IsNotEmpty({})
+  // @IsString()
+  // @IsNotEmpty({})
   @ApiProperty({
     type: 'strng',
     example: '好きな食べ物に関するアンケート',
@@ -13,8 +13,9 @@ export class CreateSurveyDto {
   })
   title: string;
 
-  @ValidateNested()
-  @Type(() => CreateQuestionDto)
-  @ApiProperty({ type: CreateQuestionDto, description: '具体的な質問内容' })
-  question: CreateQuestionDto;
+  @ValidateNested({each:true})
+  @Type(() => Array<CreateQuestionDto>)
+  // @ArrayNotEmpty()
+  @ApiProperty({ type: Array<CreateQuestionDto>, description: '具体的な質問内容' })
+  questions: CreateQuestionDto[];
 }

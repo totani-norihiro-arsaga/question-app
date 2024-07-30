@@ -1,4 +1,5 @@
 import {
+  ArrayMinSize,
   IsEnum,
   IsNotEmpty,
   IsOptional,
@@ -20,7 +21,7 @@ export class CreateQuestionDto {
     example: '一番好きなお肉の種類は？',
     description: '質問文',
   })
-  qustion_text: string;
+  questionText: string;
 
   @IsEnum(ResponseTypes)
   @ApiProperty({
@@ -28,10 +29,11 @@ export class CreateQuestionDto {
     example: ResponseTypes.SingleChoice,
     description: '質問への回答形式',
   })
-  response_format: ResponseTypes;
+  responseFormat: ResponseTypes;
 
-  @ValidateNested()
+  @ValidateNested({each:true})
   @Type(() => Array<CreateChoiceDto>)
+  @ArrayMinSize(2)
   @ApiProperty({
     type: Array<CreateChoiceDto>,
     description: '質問に対する選択肢',
@@ -45,5 +47,5 @@ export class CreateQuestionDto {
     example: 'ddf04cad-f738-4b85-bd80-2810e96a8b29',
     description: 'アンケートID',
   })
-  survey_id: UUID | null;
+  surveyId: UUID | null;
 }

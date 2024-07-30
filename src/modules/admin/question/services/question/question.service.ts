@@ -4,6 +4,7 @@ import { Question } from 'src/entities/question.entity';
 import { EntityManager, Repository } from 'typeorm';
 import { CreateQuestionDto } from 'src/modules/admin/question/dto/create-qustion.dto';
 import { Choice } from 'src/entities/choice.entity';
+import { Survey } from 'src/entities/survey.entity';
 
 @Injectable()
 export class QuestionService {
@@ -13,20 +14,26 @@ export class QuestionService {
     @InjectRepository(Choice) private choiceRepository: Repository<Choice>,
   ) {}
 
-  async create(createQuestionDto: CreateQuestionDto, manager: EntityManager) {
-    let question = await manager.getRepository(Question).save({
-      questionText: createQuestionDto.qustion_text,
-      responseFormat: createQuestionDto.response_format,
-      surveyId: createQuestionDto.survey_id,
-    });
+  async create(
+    createQuestionDtos: CreateQuestionDto[],
+    survey: Survey,
+    manager: EntityManager,
+  ):Promise<void> {
+    for (const createQuestionDto of createQuestionDtos) {
+      const question = await manager.getRepository(Question).save({
+        questionText: createQuestionDto.questionText,
+        responseFormat: createQuestionDto.responseFormat,
+        surveyId: survey.id,
+      });
 
-    const choices = createQuestionDto.choices.map((createChoiceDto) => {
-      return {
-        choiceText: createChoiceDto.choice_text,
-        questionId: question.id,
-      };
-    });
+      const choices = createQuestionDto.choices.map((createChoiceDto) => {
+        return {
+          choiceText: createChoiceDto.choiceText,
+          questionId: question.id,
+        };
+      });
 
-    return await manager.getRepository(Choice).save(choices);
+      await manager.getRepository(Choice).save(choices);
+    }
   }
 }

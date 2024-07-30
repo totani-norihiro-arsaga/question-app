@@ -67,8 +67,7 @@ export class SurveyController {
     const manager = queryRunner.manager;
     try {
       const survey = await this.surveyService.create(createSurveyDto, manager);
-      createSurveyDto.question.survey_id = survey.id;
-      await this.questionService.create(createSurveyDto.question, manager);
+      await this.questionService.create(createSurveyDto.questions, survey, manager);
       await queryRunner.commitTransaction();
       await queryRunner.release();
       return new CreatedSurveyResponseDto();
